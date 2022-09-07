@@ -1,6 +1,6 @@
 <div align="center">
 
-# PROJECT_NAME_URL
+# Python Video Generator
 
 A one-liner description of your project goes here.
 
