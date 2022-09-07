@@ -1,0 +1,11 @@
+__pycache__
+.coverage
+.DS_Store
+.env
+*.egg-info
+dist
+htmlcov
+venv
+*.jpg
+*.png
+*.mp3
