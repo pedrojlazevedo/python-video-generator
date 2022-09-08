@@ -106,7 +106,7 @@ def add_text_to_image(sentence: Sentence, title=None, default_font_size=45, max_
 
 
 def compose_video(document: Document):
-    images = [make_star_wars_video(document.query)]
+    images = [make_star_wars_video(title=document.query)]
     for sub_title, sentences in document.sentences.items():
 
         screen_size = (1920, 1080)
@@ -119,7 +119,7 @@ def compose_video(document: Document):
 
         tokens = sub_title.split(" ")
         char_count = 0
-        max_char_per_line = 20
+        max_char_per_line = 17
         parsed_title = ""
         for token in tokens:
             if char_count > max_char_per_line:

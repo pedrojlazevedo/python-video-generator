@@ -2,7 +2,7 @@
 
 # Python Video Generator
 
-A one-liner description of your project goes here.
+Write a keyword, click a button, and we generate a completely new video.
 
 [![Build Status](https://github.com/pedrojlazevedo/video_name_generator/workflows/build/badge.svg)](https://github.com/pedrojlazevedo/video_name_generator/actions)
 [![Coverage Status](https://coveralls.io/repos/github/pedrojlazevedo/video_name_generator/badge.svg?branch=main)](https://coveralls.io/github/pedrojlazevedo/video_name_generator?branch=main)
@@ -13,7 +13,11 @@ A one-liner description of your project goes here.
 
 </div>
 
-Write a keyword, click a button and we generate a completly new video. 
+You can check out the first release video [clicking here](https://www.youtube.com/watch?v=mgxdDL1KbWo).
+
+This project just started, and the code needs a severe clean-up and deep installation guide.
+If you have any question about the code, just reach me out and create an issue if you have any problems.
+
 
 ## Install
 

@@ -1,14 +1,11 @@
-import codecs
 import os
 from glob import glob
-from typing import List
 
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QMainWindow, QDialog, QComboBox, QPushButton, QVBoxLayout, QLabel, QHBoxLayout, QRadioButton
-from bing_image_downloader import downloader
 from bing_images import bing
 
-from python_video_generator.utils import Document, Sentence
+from python_video_generator.utils import Sentence
 
 
 class BingImageRetrieval(QMainWindow):
@@ -38,19 +35,33 @@ class BingImageRetrieval(QMainWindow):
             self.image_selected = int(radio_button.text())
 
     def download_images(self, sentence: Sentence, n: int = 5):
-        text = sentence.best_keyword
-        text = text.encode("ascii", "ignore")
-        text = text.decode()
-        image_dir = os.path.join(self.images_dir, text)
+        for text in sentence.keywords:
+            clean_text = text.encode("ascii", "ignore")
+            clean_text = clean_text.decode()
+            image_dir = os.path.join(self.images_dir, clean_text)
+            bing.download_images(clean_text,
+                                 limit=n,
+                                 output_dir=image_dir,
+                                 pool_size=20,
+                                 force_replace=True,
+                                 filters='+filterui:license-L2_L3&FORM=IRFLTR')
 
-        bing.download_images(text,
-                             limit=5,
-                             output_dir=image_dir,
-                             pool_size=20,
-                             force_replace=True)
-
-        # save download images path
-        sentence.images = glob(os.path.join(image_dir, "*"))
+            # save download images path
+            sentence.images = glob(os.path.join(image_dir, "*"))
+            if len(sentence.images) > 0:
+                sentence.best_keyword = text
+                break
+        # fall back
+        if len(sentence.images) == 0:
+            text = sentence.best_keyword
+            clean_text = text.encode("ascii", "ignore")
+            clean_text = clean_text.decode()
+            image_dir = os.path.join(self.images_dir, clean_text)
+            bing.download_images(clean_text,
+                                 limit=n,
+                                 output_dir=image_dir,
+                                 pool_size=20,
+                                 force_replace=True,)
 
     def retrieve_best_image(self, sentence: Sentence):
         self.select_best_keyword(sentence)
