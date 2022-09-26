@@ -62,6 +62,7 @@ class BingImageRetrieval(QMainWindow):
                                  output_dir=image_dir,
                                  pool_size=20,
                                  force_replace=True,)
+            sentence.images = glob(os.path.join(image_dir, "*"))
 
     def retrieve_best_image(self, sentence: Sentence):
         self.select_best_keyword(sentence)
@@ -130,4 +131,4 @@ class BingImageRetrieval(QMainWindow):
         #self.central_widget.exec()
 
         print(self.image_selected)
-        sentence.best_image = sentence.images[self.image_selected]
+        sentence.best_image = sentence.images[self.image_selected - 1]

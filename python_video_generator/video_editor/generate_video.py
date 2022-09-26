@@ -9,6 +9,7 @@ from moviepy.editor import AudioFileClip, ImageClip
 from moviepy.video.VideoClip import TextClip
 from moviepy.video.compositing.CompositeVideoClip import CompositeVideoClip
 from moviepy.video.compositing.concatenate import concatenate_videoclips
+from moviepy.video.io.VideoFileClip import VideoFileClip
 from moviepy.video.tools.segmenting import findObjects
 
 from python_video_generator.utils import Sentence, Document
@@ -49,6 +50,8 @@ def resize_image(sentence: Sentence):
     image_final = image_final[int(y): int(y + ideal_height), int(x): int(x + ideal_width)]
 
     filename = sentence.best_image.split(".")
+    if filename[1] == 'gif':
+        filename[1] = 'png'
     filename = filename[0] + '_resized.' + filename[1]
     cv2.imwrite(filename, image_final)
 
@@ -157,6 +160,7 @@ def compose_video(document: Document):
                 video = video.fx(vfx.mask_color, color=(0, 0, 0), thr=1, s=2)
                 is_first = False
             images.append(video)
+    images.append(VideoFileClip("final_screen.mov"))
     concat_clip = concatenate_videoclips(images, method="compose")
     concat_clip.write_videofile("test.mp4", fps=24)
 

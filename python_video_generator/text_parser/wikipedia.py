@@ -56,11 +56,18 @@ class WikipediaScraper(QMainWindow):
                 sentence = self.preprocess_plain_text(sentence)
                 split_sentence = nltk.sent_tokenize(sentence)
                 wikipedia_page.setdefault(title, []).extend(split_sentence)
-        wikipedia_page.pop('Further reading', None)
-        wikipedia_page.pop('See also', None)
-        wikipedia_page.pop('People', None)
-        wikipedia_page.pop('References', None)
-        wikipedia_page.pop('External Links', None)
+        titles_to_remove = ['Further reading', 'See also', 'People', 'References',
+                            'External Links', 'External links', 'Gallery', 'Office titles and terminology',
+                            'Sources']
+        for title in wikipedia_page:
+            to_remove = 0
+            for sentence in wikipedia_page[title]:
+                if len(sentence.split(" ")) <= 10:
+                    to_remove += 1
+            if to_remove > (len(wikipedia_page[title])) / 3:
+                titles_to_remove.append(title)
+
+        [wikipedia_page.pop(title, None) for title in titles_to_remove]
         print(wikipedia_page.keys())
 
         return wikipedia_page
