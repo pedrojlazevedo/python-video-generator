@@ -12,7 +12,7 @@ def gen_query_url(keywords, filters, extra_query_params=''):
     keywords_str = "&q=" + quote(keywords)
     query_url = BASE_URL + keywords_str
     if len(filters) > 0:
-        query_url += "&qft="+filters
+        query_url += "&qft=" + filters
     query_url += extra_query_params
     return query_url
 
@@ -29,8 +29,7 @@ def image_url_from_webpage(driver, max_number=10000):
             break
         if len(image_elements) > img_count:
             img_count = len(image_elements)
-            driver.execute_script(
-                "window.scrollTo(0, document.body.scrollHeight);")
+            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         else:
             smb = driver.find_elements(By.CLASS_NAME, "btn_seemore")
             if len(smb) > 0 and smb[0].is_displayed():
@@ -50,8 +49,7 @@ def crawl_image_urls(keywords, filters, max_number=10000, proxy=None, proxy_type
     chrome_path = "./bin/chromedriver" if chrome_path is None else chrome_path
     chrome_options = webdriver.ChromeOptions()
     if proxy is not None and proxy_type is not None:
-        chrome_options.add_argument(
-            "--proxy-server={}://{}".format(proxy_type, proxy))
+        chrome_options.add_argument("--proxy-server={}://{}".format(proxy_type, proxy))
     driver = webdriver.Chrome(chrome_path, chrome_options=chrome_options)
 
     query_url = gen_query_url(keywords, filters, extra_query_params=extra_query_params)
@@ -65,14 +63,12 @@ def crawl_image_urls(keywords, filters, max_number=10000, proxy=None, proxy_type
     else:
         output_num = max_number
 
-    print("Crawled {} image urls.".format(
-        len(image_urls)))
+    print("Crawled {} image urls.".format(len(image_urls)))
 
     return image_urls[0:output_num]
 
 
 if __name__ == '__main__':
-    images = crawl_image_urls(
-        "cat png", "+filterui:aspect-square", max_number=10)
+    images = crawl_image_urls("cat png", "+filterui:aspect-square", max_number=10)
     for i in images:
-        print(i+"\n")
+        print(i + "\n")

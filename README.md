@@ -22,6 +22,16 @@ If you have any question about the code, just reach me out and create an issue i
 ## Install
 
 ```bash
+# Create a conda environment
+conda create -n video_generator python=3.8
+```
+
+```bash
+# Install dependency manager 
+make install
+```
+
+```bash
 # Install tool
 pip3 install python_video_generator
 

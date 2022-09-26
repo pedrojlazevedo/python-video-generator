@@ -16,11 +16,7 @@ _FINISH = False
 
 
 def fetch_image_urls(
-    query: str,
-    limit: int = 20,
-    file_type: str = '',
-    filters: str = '',
-    extra_query_params: str =''
+    query: str, limit: int = 20, file_type: str = '', filters: str = '', extra_query_params: str = ''
 ) -> List[str]:
     result = list()
     keywords = query
@@ -49,14 +45,14 @@ def download_images(
     file_type: str = '',
     filters: str = '',
     force_replace=False,
-    extra_query_params: str =''
+    extra_query_params: str = '',
 ):
     start = timer()
     image_dir = make_image_dir(output_dir, force_replace)
     print("Save path: {}".format(image_dir))
 
     # Fetch more image URLs to avoid some images are invalid.
-    max_number = math.ceil(limit*1.5)
+    max_number = math.ceil(limit * 1.5)
     urls = fetch_image_urls(query, max_number, file_type, filters, extra_query_params=extra_query_params)
     entries = get_image_entries(urls, image_dir)
 
@@ -94,9 +90,8 @@ def download_image_entries(entries, pool_size, limit):
     counter = 1
     _FINISH = False
     pool = ThreadPool(pool_size)
-    results = pool.imap_unordered(
-        download_image_with_thread, entries)
-    for (url, result) in results:
+    results = pool.imap_unordered(download_image_with_thread, entries)
+    for url, result in results:
         if counter > limit:
             _FINISH = True
             pool.terminate()
@@ -126,10 +121,6 @@ def download_image_with_thread(entry):
 
 
 if __name__ == '__main__':
-    download_images("cat",
-                    20,
-                    output_dir="./",
-                    pool_size=10,
-                    file_type="png",
-                    force_replace=True,
-                    extra_query_params='&first=100')
+    download_images(
+        "cat", 20, output_dir="./", pool_size=10, file_type="png", force_replace=True, extra_query_params='&first=100'
+    )

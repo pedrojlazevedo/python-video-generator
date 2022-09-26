@@ -3,9 +3,9 @@ from glob import glob
 
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QMainWindow, QDialog, QComboBox, QPushButton, QVBoxLayout, QLabel, QHBoxLayout, QRadioButton
-from bing_images import bing
 
 from python_video_generator.utils import Sentence
+from python_video_generator.video_editor import bing
 
 
 class BingImageRetrieval(QMainWindow):
@@ -39,12 +39,14 @@ class BingImageRetrieval(QMainWindow):
             clean_text = text.encode("ascii", "ignore")
             clean_text = clean_text.decode()
             image_dir = os.path.join(self.images_dir, clean_text)
-            bing.download_images(clean_text,
-                                 limit=n,
-                                 output_dir=image_dir,
-                                 pool_size=20,
-                                 force_replace=True,
-                                 filters='+filterui:license-L2_L3&FORM=IRFLTR')
+            bing.download_images(
+                clean_text,
+                limit=n,
+                output_dir=image_dir,
+                pool_size=20,
+                force_replace=True,
+                filters='+filterui:license-L2_L3&FORM=IRFLTR',
+            )
 
             # save download images path
             sentence.images = glob(os.path.join(image_dir, "*"))
@@ -57,11 +59,13 @@ class BingImageRetrieval(QMainWindow):
             clean_text = text.encode("ascii", "ignore")
             clean_text = clean_text.decode()
             image_dir = os.path.join(self.images_dir, clean_text)
-            bing.download_images(clean_text,
-                                 limit=n,
-                                 output_dir=image_dir,
-                                 pool_size=20,
-                                 force_replace=True,)
+            bing.download_images(
+                clean_text,
+                limit=n,
+                output_dir=image_dir,
+                pool_size=20,
+                force_replace=True,
+            )
             sentence.images = glob(os.path.join(image_dir, "*"))
 
     def retrieve_best_image(self, sentence: Sentence):
@@ -90,8 +94,8 @@ class BingImageRetrieval(QMainWindow):
         self.central_widget.setLayout(layout)
         self.setCentralWidget(self.central_widget)
 
-        #self.show()
-        #self.central_widget.exec()
+        # self.show()
+        # self.central_widget.exec()
 
         sentence.best_keyword = self.keyword
 
@@ -127,8 +131,8 @@ class BingImageRetrieval(QMainWindow):
         self.central_widget.setLayout(layout)
         self.setCentralWidget(self.central_widget)
 
-        #self.show()
-        #self.central_widget.exec()
+        # self.show()
+        # self.central_widget.exec()
 
         print(self.image_selected)
         sentence.best_image = sentence.images[self.image_selected - 1]

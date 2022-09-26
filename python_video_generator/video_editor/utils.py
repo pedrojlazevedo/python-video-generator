@@ -16,8 +16,7 @@ def download_image(url, path) -> bool:
                 shutil.copyfileobj(r.raw, f)
             return True
         else:
-            print("[!] Download image: {}\n[!] Err :: {}".format(
-                url, r.status_code))
+            print("[!] Download image: {}\n[!] Err :: {}".format(url, r.status_code))
             return False
     except Exception as e:
         print("[!] Download image: {}\n[!] Err :: {}".format(url, e))
