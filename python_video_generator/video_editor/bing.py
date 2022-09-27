@@ -6,11 +6,11 @@ try:
     from crawler import crawl_image_urls
 except ImportError:  # Python 3
     from .crawler import crawl_image_urls
-from typing import List
-from multiprocessing.pool import ThreadPool
-from time import time as timer
-import os
 import math
+import os
+from multiprocessing.pool import ThreadPool
+from time import time as timer, sleep
+from typing import List
 
 _FINISH = False
 
@@ -61,7 +61,7 @@ def download_images(
     if limit < pool_size:
         ps = limit
     download_image_entries(entries, ps, limit)
-
+    sleep(2.5)
     rename_images(image_dir, query)
 
     print("Done")

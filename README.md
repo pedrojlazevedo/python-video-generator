@@ -39,6 +39,24 @@ pip3 install python_video_generator
 make install
 ```
 
+In the package `moviepy` I changed the file `drawing.py`
+```python
+# line 147
+# from
+if vector is not None:    
+# to
+if vector is not None:
+```
+
+Not adding the TTS package
+```bash
+git clone https://github.com/coqui-ai/TTS.git
+cd TTS.
+python -m venv .
+.\Scripts\pip install -e .
+cd ..
+poetry add ./TTS
+```
 ## Usage
 
 Usage instructions go here.

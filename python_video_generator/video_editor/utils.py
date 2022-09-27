@@ -8,8 +8,11 @@ DEFAULT_OUTPUT_DIR = "bing-images"
 
 
 def download_image(url, path) -> bool:
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/50.0.2661.102 Safari/537.36'}
     try:
-        r = requests.get(url, stream=True)
+        r = requests.get(url, stream=True, headers=headers)
         if r.status_code == 200:
             with open(path, 'wb') as f:
                 r.raw.decode_content = True
