@@ -1,3 +1,28 @@
+[tool.poetry]
+name = "python_video_generator"
+version = "0.1.0"
+description = "Automatic Video Generator Keyword-based"
+authors = ["Pedro Azevedo <pedro6@gmail.com>"]
+readme = "README.md"
+packages = []
+license='MIT'
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.9"
+PyQt6 = "^6.3.1"
+requests = "^2.28.1"
+selenium = "^4.4.3"
+nltk = "^3.7"
+wikipedia = "^1.4.0"
+keybert = "^0.6.0"
+opencv-python = "^4.6.0.66"
+matplotlib = "^3.6.0"
+moviepy = "^1.0.3"
+scikit-image = "^0.19.3"
+black = "^22.8.0"
+numpy = ">=1.21"
+tts = {path = "TTS"}
+
 [tool.black]
 preview = true
 line-length = 120

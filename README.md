@@ -22,6 +22,16 @@ If you have any question about the code, just reach me out and create an issue i
 ## Install
 
 ```bash
+# Create a conda environment
+conda create -n video_generator python=3.8
+```
+
+```bash
+# Install dependency manager 
+make install
+```
+
+```bash
 # Install tool
 pip3 install python_video_generator
 
@@ -29,6 +39,24 @@ pip3 install python_video_generator
 make install
 ```
 
+In the package `moviepy` I changed the file `drawing.py`
+```python
+# line 147
+# from
+if vector is not None:    
+# to
+if vector is not None:
+```
+
+Not adding the TTS package
+```bash
+git clone https://github.com/coqui-ai/TTS.git
+cd TTS.
+python -m venv .
+.\Scripts\pip install -e .
+cd ..
+poetry add ./TTS
+```
 ## Usage
 
 Usage instructions go here.

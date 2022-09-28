@@ -50,15 +50,23 @@ class WikipediaScraper(QMainWindow):
         title = "abstract"
 
         for sentence in sentences:
-            if sentence.startswith("="):
+            if sentence.startswith("==") and not sentence.startswith("===="):
                 title = sentence.replace("=", "").strip()
             else:
                 sentence = self.preprocess_plain_text(sentence)
                 split_sentence = nltk.sent_tokenize(sentence)
                 wikipedia_page.setdefault(title, []).extend(split_sentence)
-        titles_to_remove = ['Further reading', 'See also', 'People', 'References',
-                            'External Links', 'External links', 'Gallery', 'Office titles and terminology',
-                            'Sources']
+        titles_to_remove = [
+            'Further reading',
+            'See also',
+            'People',
+            'References',
+            'External Links',
+            'External links',
+            'Gallery',
+            'Office titles and terminology',
+            'Sources',
+        ]
         for title in wikipedia_page:
             to_remove = 0
             for sentence in wikipedia_page[title]:
@@ -74,8 +82,12 @@ class WikipediaScraper(QMainWindow):
 
     def init_sentences(self, sentences):
         sentences_dict = dict()
-        [sentences_dict.setdefault(sub_title, []).extend([Sentence(sentence) for sentence in nltk.sent_tokenize(text)])
-         for sub_title, text in sentences.items()]
+        [
+            sentences_dict.setdefault(sub_title, []).extend(
+                [Sentence(sentence) for sentence in nltk.sent_tokenize(text)]
+            )
+            for sub_title, text in sentences.items()
+        ]
         return sentences_dict
 
     def summarize_article(self, article: dict, max_tokens: int = 1024):
