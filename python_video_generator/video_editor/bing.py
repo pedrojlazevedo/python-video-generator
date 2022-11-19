@@ -61,7 +61,7 @@ def download_images(
     if limit < pool_size:
         ps = limit
     download_image_entries(entries, ps, limit)
-    sleep(2.5)
+    sleep(5)
     rename_images(image_dir, query)
 
     print("Done")
