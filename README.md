@@ -33,7 +33,7 @@ make install
 
 ```bash
 # Install tool
-pip3 install python_video_generator
+pip install python_video_generator
 
 # Install locally
 make install
@@ -48,12 +48,11 @@ if vector is not None:
 if vector is None:
 ```
 
-Not adding the TTS package
+Now adding the TTS package
 ```bash
 git clone https://github.com/coqui-ai/TTS.git
 cd TTS.
-python -m venv .
-.\Scripts\pip install -e .
+pip install -e .
 cd ..
 poetry add ./TTS
 ```
