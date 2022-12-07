@@ -45,7 +45,7 @@ In the package `moviepy` I changed the file `drawing.py`
 # from
 if vector is not None:    
 # to
-if vector is not None:
+if vector is None:
 ```
 
 Not adding the TTS package
@@ -62,7 +62,7 @@ poetry add ./TTS
 Usage instructions go here.
 
 ```bash
-venv/bin/python orchestrator.py
+python orchestrator.py
 ```
 
 ## Development
